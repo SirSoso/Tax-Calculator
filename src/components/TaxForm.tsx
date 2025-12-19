@@ -4,11 +4,11 @@ import { TextField } from "./TextField";
 import { SelectInput } from "./SelectInput";
 
 type Props = {
-  loading: boolean;
+  loading?: boolean;
   onSubmit: (income: number, year: number) => void;
 };
 
-export const TaxForm = ({ loading, onSubmit }: Props) => {
+export const TaxForm = ({ onSubmit, loading = false }: Props) => {
   const [year, setYear] = useState(2022);
   const [income, setIncome] = useState("");
 

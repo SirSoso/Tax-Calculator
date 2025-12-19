@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# Tax Calculator (React + TypeScript + Vite)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -11,63 +11,35 @@ Currently, two official plugins are available:
 
 The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+## API Configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The application centralizes its API configuration using a shared Axios instance to ensure consistency, scalability, and easier maintenance.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Axios Instance
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The Axios instance is defined in the following file:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```ts
+src / api / config.ts;
+import axios, { type AxiosInstance } from "axios";
+
+const PORT = 5001;
+const baseURL = `http://localhost:${PORT}`;
+
+export const instanceDB: AxiosInstance = axios.create({ baseURL });
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Get Up & Running
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+In order to run the API locally, please follow these instructions:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+docker pull ptsdocker16/interview-test-server
+docker run --init -p 5001:5001 -it ptsdocker16/interview-test-server
 ```
+
+Navigate to [http://localhost:5001](http://localhost:5001). You should be greeted with this set of instructions, and access to the different available endpoints. The following are the relevant endpoints:
+
+- [/tax-calculator/tax-year/2022](/tax-calculator/tax-year/2022) - endpoint you'll be assessed against
+
+If you have any problems or need any sort of clarification, email the engineering hiring manager for assistance.

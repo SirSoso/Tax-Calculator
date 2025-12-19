@@ -1,6 +1,7 @@
 import type { ChangeEvent, HTMLInputTypeAttribute } from "react";
 
 type Props = {
+  name?: string;
   label: string;
   value: string | number;
   type?: HTMLInputTypeAttribute | undefined;
@@ -11,11 +12,19 @@ export const TextField = ({
   label,
   value,
   onChange,
+  name = "input",
   type = undefined,
 }: Props) => (
   <div className="w-full">
-    <label className="block text-sm font-medium text-gray-700">{label}</label>
+    <label
+      className="block text-sm font-medium text-gray-700"
+      htmlFor={`${name}-id`}
+    >
+      {label}
+    </label>
     <input
+      id={`${name}-id`}
+      name={name}
       type={type}
       value={value}
       onChange={onChange}
